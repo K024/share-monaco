@@ -20,10 +20,13 @@ export default class MyWidget implements editor.IContentWidget {
 
   disposes: IDisposable[] = []
 
+  color = ""
+  label = ""
+
   constructor(
-    public editor: editor.ICodeEditor,
-    public label: string,
-    public color = randomHsl()) {
+    readonly editor: editor.ICodeEditor,
+    label: string,
+    color = randomHsl()) {
 
     MyWidget.addGlobalCss()
 
@@ -53,7 +56,9 @@ export default class MyWidget implements editor.IContentWidget {
     this.disposes.push({
       dispose: () => { document.head.removeChild(this.styleEl) }
     })
+
     this.setColor(color)
+    this.setLabel(label)
 
     this.selection = monaco.Selection.liftSelection({
       selectionStartLineNumber: 1,
@@ -121,6 +126,7 @@ export default class MyWidget implements editor.IContentWidget {
   }
 
   setColor(color: string) {
+    if (this.color === color) return
     this.color = color
     this.styleEl.innerHTML = `
       .${this.decorationClassName} {
@@ -133,6 +139,7 @@ export default class MyWidget implements editor.IContentWidget {
   }
 
   setLabel(label: string) {
+    if (this.label === label) return
     this.label = this.labelEl.innerText = label
   }
 

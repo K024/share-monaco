@@ -96,7 +96,7 @@ export default class MonacoBinding {
             throw new Error("Unexpected delta operation")
           }
         })
-        monacoModel.pushStackElement()
+        // monacoModel.pushStackElement()
         if (savedSelection) {
           const sel = createMonacoSelection(editor, ytext, savedSelection)
           if (sel) editor.setSelection(sel)

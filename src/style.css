@@ -7,8 +7,7 @@ body {
 }
 
 .container {
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,12 +28,13 @@ body {
   min-height: 80vh;
 }
 
-.home > * + *, .container > * + * {
-  margin-top: 16px;
+.home > *, .container > * {
+  margin: 8px;
 }
 
 .tip {
   font-size: 0.8rem;
+  line-height: 1.5em;
   font-weight: 100;
 }
 
@@ -42,15 +42,21 @@ body {
   font-weight: 100;
 }
 
-.home > form {
+.home > form, .tool-box {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
+.home > form > *, .tool-box > * {
+  margin-top: 8px;
+}
 .home > form > * + *, .tool-box > * + * {
   margin-left: 16px;
 }
 
-.tool-box > span {
+.tool-box > div {
   padding: 3px;
   font-family: 'Consolas', 'Courier New', Courier, monospace;
   text-align: center;
@@ -58,6 +64,7 @@ body {
 }
 
 .home > form > input, .tool-box > select, .tool-box > input {
+  display: inline-block;
   padding: 3px;
   font-family: 'Consolas', 'Courier New', Courier, monospace;
   text-align: center;
@@ -69,7 +76,8 @@ body {
   border: 1px solid gray;
 }
 
-.home > form > input:focus, .tool-box > select:focus, .tool-box > input:focus {
+.home > form > input:focus, .home > form > button:active,
+.tool-box > select:focus, .tool-box > input:focus {
   box-shadow: 0 0 0 2px #b1d9ff;
   border: 1px solid #389af7;
 }
@@ -80,17 +88,6 @@ body {
   transition: all .14s ease;
   box-shadow: 0 0 0 0px #fff;
   border: 1px solid gray;
-}
-
-.home > form > button:active {
-  box-shadow: 0 0 0 2px #b1d9ff;
-  border: 1px solid #389af7;
-}
-
-.tool-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* from https://loading.io/css/ */
@@ -122,7 +119,7 @@ body {
   animation-delay: 0;
 }
 @keyframes lds-facebook {
-  0% {
+  0%, 100% {
     top: 8px;
     height: 64px;
   }
@@ -130,9 +127,4 @@ body {
     top: 24px;
     height: 32px;
   }
-  100% {
-    top: 8px;
-    height: 64px;
-  }
 }
-

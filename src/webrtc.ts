@@ -2,6 +2,8 @@ import { fromByteArray, toByteArray } from "base64-js"
 import * as Y from "yjs"
 import * as  yawareness from "y-protocols/awareness"
 import { post } from "./utils"
+
+// https://gist.github.com/mondain/b0ec1cf5f60ae726202e#gistcomment-3238034
 import serverlist from "./stun.txt?raw"
 
 let smeeUrl = import.meta.env["VITE_SMEE_IO_URL"]

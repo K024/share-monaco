@@ -14,21 +14,21 @@ export async function start(clientId: string, roomId: string, container: HTMLDiv
 
   const box: HTMLElement =
     <div className="tool-box">
-      <span>Room {roomId}</span>
-      {<select onchange={(e: any) => {
+      <div>Room {roomId}</div>
+      <select title="Language mode (local)" onchange={(e: any) => {
         monaco.editor.setModelLanguage(editor.getModel()!, e.target.value)
-        const lang = monaco.languages.getLanguages().find(x => x.id === e.target.value)
+        const lang = languages.find(x => x.id === e.target.value)
         if (lang?.extensions) ext = lang.extensions[0]
       }}>
         {languages.map(x =>
           <option value={x.id}>
             {x.aliases && x.aliases[0] || x.id}
           </option>)}
-      </select>}
-      <input type="text" value={name} placeholder="Dislay name" onchange={(e: any) => {
+      </select>
+      <input type="text" title="Display name" value={name} placeholder="Dislay name" onchange={(e: any) => {
         awareness.setLocalStateField("name", e.target.value || name)
       }} />
-      <input type="color" value={color} onchange={(e: any) => {
+      <input type="color" title="Cursor color" value={color} onchange={(e: any) => {
         if (/#[0-9a-fA-F]{6}/.test(e.target.value))
           awareness.setLocalStateField("color", e.target.value)
       }} />

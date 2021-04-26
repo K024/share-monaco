@@ -1,3 +1,5 @@
+// https://github.com/vitejs/vite/discussions/1791#discussioncomment-321046
+
 import * as monaco from "monaco-editor"
 import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker"
 import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker"
