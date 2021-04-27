@@ -6,4 +6,6 @@ using:
 - [smee.io](https://smee.io) webhook delivery service (signal only)
 - [WebRTC](https://webrtc.org/) realtime p2p connection
 
+visit [share-monaco.vercel.app](https://share-monaco.vercel.app/).
+
 **WARN**: No data is persisted and there's NO guarantee on data secrecy since everyone could connect to smee.io endpoint.
