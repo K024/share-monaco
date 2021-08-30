@@ -17,6 +17,7 @@ export default class MyWidget implements editor.IContentWidget {
 
   decorations: string[] = []
   selection: Selection
+  lineHeight = 0
 
   disposes: IDisposable[] = []
 
@@ -30,10 +31,19 @@ export default class MyWidget implements editor.IContentWidget {
 
     MyWidget.addGlobalCss()
 
+    this.selection = monaco.Selection.liftSelection({
+      selectionStartLineNumber: 1,
+      selectionStartColumn: 1,
+      positionColumn: 1,
+      positionLineNumber: 1
+    })
+
     const updateHeight = () => {
       const lineHeight = editor.getOptions().get(monaco.editor.EditorOptions.lineHeight.id)
-      this.el.style.height = lineHeight + "px"
-      this.labelEl.style.bottom = lineHeight + "px"
+      if (lineHeight !== this.lineHeight) {
+        this.lineHeight = lineHeight
+        this.updateLabel()
+      }
     }
     updateHeight()
     this.disposes.push(editor.onDidChangeConfiguration(updateHeight))
@@ -49,7 +59,7 @@ export default class MyWidget implements editor.IContentWidget {
       this.labelEl.classList.add("show")
       showTimeout = setTimeout(() => {
         this.labelEl.classList.remove("show")
-      }, 1000)
+      }, 1300)
     })
 
     document.head.appendChild(this.styleEl)
@@ -60,12 +70,6 @@ export default class MyWidget implements editor.IContentWidget {
     this.setColor(color)
     this.setLabel(label)
 
-    this.selection = monaco.Selection.liftSelection({
-      selectionStartLineNumber: 1,
-      selectionStartColumn: 1,
-      positionColumn: 1,
-      positionLineNumber: 1
-    })
     editor.addContentWidget(this)
 
     this.disposes.push({
@@ -84,12 +88,14 @@ export default class MyWidget implements editor.IContentWidget {
         border-left: 2px solid;
         position: relative;
         width: 3px;
+        box-sizing: border-box;
       }
       .share-monaco-widget-label {
         position: absolute;
         left: -2px;
         border-radius: 3px;
         padding: 0 3px 0;
+        font-family: 'Consolas', 'Courier New', Courier, monospace;
         color: #ffffff;
         white-space: nowrap;
         overflow: hidden;
@@ -163,6 +169,18 @@ export default class MyWidget implements editor.IContentWidget {
       }
     ])
     this.editor.layoutContentWidget(this)
+    this.updateLabel()
+  }
+
+  updateLabel() {
+    this.el.style.height = this.lineHeight + "px"
+    if (this.selection.positionLineNumber <= 1) {
+      this.labelEl.style.top = this.lineHeight + "px"
+      this.labelEl.style.bottom = "auto"
+    } else {
+      this.labelEl.style.top = "auto"
+      this.labelEl.style.bottom = this.lineHeight + "px"
+    }
   }
 
   dispose() {

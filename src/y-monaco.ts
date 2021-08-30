@@ -77,7 +77,6 @@ export default class MonacoBinding {
       mux(() => {
         let index = 0
         event.delta.forEach(op => {
-          monacoModel
           if (op.retain !== undefined) {
             index += op.retain
           } else if (op.insert !== undefined) {
@@ -177,8 +176,6 @@ export default class MonacoBinding {
       this.dispose()
     })
   }
-
-  onTextUpdated?: () => void
 
   dispose() {
     this.disposes.forEach(x => x.dispose())

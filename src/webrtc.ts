@@ -102,7 +102,6 @@ export function setupWebrtc(
     })
 
     connections.set(remoteId, conn)
-    Object.assign(window, { conn })
 
     conn.onconnectionstatechange = () => {
       if (["closed", "disconnected", "failed"].includes(conn.connectionState)) {
@@ -137,7 +136,6 @@ export function setupWebrtc(
         })
 
       connections.set(remoteId, conn)
-      Object.assign(window, { conn })
 
       // wait channel on remote
       conn.ondatachannel = e => {
