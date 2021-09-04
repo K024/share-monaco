@@ -24,7 +24,7 @@ type MapIntrinsicElements<T> = {
 
 declare global {
   namespace JSX {
-    type Child = Node | string | undefined | null | false | Child[]
+    type Child = Child[] | Node | string | number | undefined | null | false
     type IntrinsicElements = MapIntrinsicElements<HTMLElementTagNameMap>
     type Element = any
     type ElementClass = never
@@ -51,12 +51,10 @@ function createElement(tag: unknown, props: {}, ...children: JSX.Child[]): Node 
   }
 
   function appendChild(child: JSX.Child) {
-    child &&
-      child instanceof Node
-      ? el.appendChild(child)
-      : child instanceof Array
-        ? child.forEach(appendChild)
-        : el.appendChild(document.createTextNode("" + child))
+    if (child === false || child === undefined || child === null) void 0 /** noop */
+    else if (child instanceof Node) el.appendChild(child)
+    else if (child instanceof Array) child.forEach(appendChild)
+    else el.appendChild(document.createTextNode(String(child)))
   }
 
   appendChild(children)

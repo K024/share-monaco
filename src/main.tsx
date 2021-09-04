@@ -8,7 +8,7 @@ const app = document.getElementById("app")!
 
 const tip =
   <p className="tip">
-    **WARN**: No data is persisted and there's NO guarantee on data secrecy
+    <b>WARN</b>: No data is persisted and there's NO guarantee on data secrecy
     <br />
     since everyone could connect to <a href="https://smee.io" target="_blank">smee.io</a> endpoint.
     <br />
@@ -16,12 +16,13 @@ const tip =
   </p>
 
 if (!room) {
-  let input: HTMLInputElement
+  const input: HTMLInputElement =
+    <input type="text" name="room" placeholder="Room Id" autocomplete="off" />
   const home: HTMLElement =
     <div className="home">
       <h1 className="title">Share Monaco</h1>
       <form>
-        {input = <input type="text" name="room" placeholder="Room Id" autocomplete="off" />}
+        {input}
         <button type="button" onclick={() => input.value = randId()}>Random</button>
         <button type="submit">Go</button>
       </form>
